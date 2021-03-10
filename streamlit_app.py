@@ -12,7 +12,8 @@ from model import predict
 def create_pie_chart(probability_dict):
     data = pd.Series(probability_dict).reset_index(name='value').rename(columns={'index': 'candidate'})
     data['angle'] = data['value'] / data['value'].sum() * 2 * pi
-    data['color'] = Pastel1[len(probability_dict)]
+    palette = [Pastel1[5], Pastel1[4], Pastel1[2]]
+    data['color'] = palette[len(probability_dict)]
 
     print(data)
 
