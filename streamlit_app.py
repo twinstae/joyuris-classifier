@@ -16,7 +16,7 @@ def create_pie_chart(probability_dict):
 
     print(data)
 
-    p = figure(plot_height=350, title="신경망이 예측한 확률", toolbar_location=None,
+    p = figure(plot_height=350, title="신경망이 예측한 확률 비율", toolbar_location=None,
                tools="hover", tooltips="@candidate: @value", x_range=(-0.5, 1.0))
 
     p.wedge(x=0, y=1, radius=0.4,
@@ -30,13 +30,14 @@ def create_pie_chart(probability_dict):
 
 
 st.title("조유리즈 판별기")
-uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+uploaded_file = st.file_uploader("얼굴만 자른 사진을 올려주세요...", type="jpg")
 if uploaded_file is not None:
     img = Image.open(uploaded_file)
     prediction, probability = predict(img)
     st.image(
         img,
         width=256,
-        caption=f"이 사람은... {prediction}입니다!",
+        caption=f"이 사람은... {prediction}!",
     )
+
     create_pie_chart(probability)

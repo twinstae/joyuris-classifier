@@ -16,12 +16,11 @@ def predict(img):
     raw_x = np.array(data)
     float_x = raw_x.astype("float") / 256
     x = float_x.reshape(-1, target_x, target_y, 3)
-    pred = model.predict(x)
-    print(pred)
-    result = [np.argmax(value) for value in pred]  # 예측 값중 가장 높은 클래스 반환
+    pred = model.predict(x)[0]
+    result = CATEGORIES[int(np.argmax(pred))]  # 예측 값중 가장 높은 클래스 반환
 
-    return CATEGORIES[int(result[0])], {
-            "최예나": int(pred[0][0] * 100),
-            "조유리": int(100 * pred[0][1]),
-            "김채원": int(100 * pred[0][2])
+    return result, {
+            "최예나": int(100 * pred[0]),
+            "조유리": int(100 * pred[1]),
+            "김채원": int(100 * pred[2])
         }
